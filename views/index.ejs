@@ -9,6 +9,7 @@
       href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css"
       rel="stylesheet"
     />
+    <link href="mapbox-gl-controls/theme.css" rel="stylesheet">
     <style>
       body {
         color: #404040;
@@ -119,7 +120,7 @@
         border: none;
         cursor: pointer;
         height: 56px;
-        width: 56px;
+        width: 43px;
         background-image: url(marker.png);
         background-color: rgba(0, 0, 0, 0);
       }
@@ -516,6 +517,16 @@
           )
           .addTo(map);
       }
+
+      var MapboxDirections = require('@mapbox/mapbox-gl-directions');
+      var directions = new MapboxDirections({
+        accessToken: 'pk.eyJ1IjoiYW5kcmVzamVycmllbHMiLCJhIjoiY2tuMWV6NGE5MHgycTJ2bG4wMmoxcmpreCJ9.wgJ5c_ImuNBnbbyLlmPe5g',
+        unit: 'metric',
+        profile: 'mapbox/drive'
+      });
+      directions.setOrigin([-6.893194719054599, 107.61043792489653]);
+      directions.setDestination([-6.887870730916851, 107.60828212400365]);
+      directions.addTo(map);
     </script>
   </body>
 </html>
