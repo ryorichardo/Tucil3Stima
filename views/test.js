@@ -1,14 +1,14 @@
 class Element {
     constructor() {
         this.idx = 0;           // index node
-        this.hasVisited = [];   // node yang sudah dikunjungi
+        this.visited = [];      // node yang sudah dikunjungi
         this.weightVisited = 0; // bobot jarak yg sudah dilewati (sama seperti g(n))
         this.weight = 0;        // bobot node (sama seperti g(n) + h(n))
     }
 
     constructor(index, list, wV, w) {
         this.idx = index;
-        this.hasVisited = list;
+        this.visited = list;
         this.weightVisited = wV;
         this.weight = w;
     }
@@ -22,11 +22,11 @@ class Element {
     }
 
     addNode(index) {
-        this.hasVisited.push(index);
+        this.visited.push(index);
     }
 
     gethasVisited() {
-        return this.hasVisited;
+        return this.visited;
     }
 
     getWeightVisited() {
@@ -40,19 +40,23 @@ class Element {
 class PriorityQueue {
 
     constructor() {
-        this.list = []
+        this.list = [];         // isi queue
+        this.hasVisited = [];   // isi node2 yang sudah dikunjungi (unik)
     }
 
     isEmpty() {
-        return this.list.length == 0
+        return this.list.length == 0;
     }
 
     enqueue(element) {
         // Kosong
         if (isEmpty()) {
-            this.list.push(element)
+            this.list.push(element);
+            this.hasVisited.push(element.getIdx());
         }
-        else {
+
+        // Element belum ada di hasVisited; element baru dikunjungi
+        else if (this.hasVisited.findIndex(element.getIdx()) != -1){
             // Tampung ke array baru
             let newList = [];
             let isPushed = false;
@@ -75,7 +79,10 @@ class PriorityQueue {
                 newList.push(this.list[i]);
             }
             // Assign ke atribut
-            this.list = newList
+            this.list = newList;
+
+            // Tambah hasVisited
+            this.hasVisited.push(element.getIdx());
         }
     }
 
@@ -113,8 +120,8 @@ var el = new Element(idx, [], 0, 0);
 var queue = new PriorityQueue();
 queue.enqueue(el);
 
-// Pengulangan sampai top of queue adalah node tujuan
-while (el.getIdx() != indexTujuan) {
+// Pengulangan sampai top of queue adalah node tujuan atau queue kosong
+while (el.getIdx() != indexTujuan && !queue.isEmpty()) {
     el = queue.dequeue();
 
     // Mencari adjacency di matrix
