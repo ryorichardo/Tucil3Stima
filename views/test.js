@@ -39,7 +39,7 @@ class Element {
 }
 class PriorityQueue {
 
-}    constructor() {
+    constructor() {
         this.list = []
     }
 
@@ -90,8 +90,9 @@ class PriorityQueue {
             return this.list[0];
         }
     }
+}
 
-varfunction haversineDistance(long1, lat1, long2, lat2) {
+function haversineDistance(long1, lat1, long2, lat2) {
     // Diambil dari https://www.movable-type.co.uk/scripts/latlong.html
     const r = 6317 // radius bumi 6317 km
     const sigma1 = lat1 * Math.PI/180;
