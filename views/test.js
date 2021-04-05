@@ -88,7 +88,7 @@ class PriorityQueue {
 
     dequeue(element) {
         if (!isEmpty()) {
-            return this.list.pop(element)
+            return this.list.shift(element)
         }
     }
 
