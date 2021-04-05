@@ -115,29 +115,49 @@ function haversineDistance(long1, lat1, long2, lat2) {
 // Algoritma A*
 
 // Inisialisasi elemen pertama dan queue
-var el = new Element(idx, [], 0, 0);
-var queue = new PriorityQueue();
-queue.enqueue(el);
+function aStar(idxsrc, idxdes, matrix, long, lat) {
+    // Kamus
+    // idxsrc   : indeks start node
+    // idxdes   : indeks destination node
+    // matrix   : adjacency matrix
+    // long     : list of longitudes
+    // lat      : list of lattitudes
 
-// Pengulangan sampai top of queue adalah node tujuan atau queue kosong
-while (el.getIdx() != indexTujuan && !queue.isEmpty()) {
-    el = queue.dequeue();
+    var el = new Element(idxsrc, [], 0, 0);
+    var queue = new PriorityQueue();
+    queue.enqueue(el);
 
-    // Mencari adjacency di matrix
-    for (let kolom = 0; kolom < matrix[el.getIdx()].length; kolom++) {
-        if (matrix[el.getIdx()][kolom] == 1) {
-            let distanceElNextEl = haversineDistance(long[el.getIdx()], lat[el.getIdx()], long[kolom], lat[kolom]); // hitung jarak pindah elemen
-            let heuristicDistance = haversineDistance(long[indexTujuan], lat[indexTujuan], long[kolom], lat[kolom]); // hitung jarak heuristik nextEl ke tujuan
-            let newWeightVisited = el.getWeightVisited() + distanceElNextEl; // jarak baru (g(n))
-            let newWeight = newWeightVisited + heuristicDistance; // bobot baru (g(n) + h(n))
-            let nextEl = new Element(kolom, el.gethasVisited(), newWeightVisited, newWeight) // bikin next element
-            nextEl.addNode(el.getIdx()); // nambah node yg udah dikunjungi
-            queue.enqueue(nextEl); // enqueue
+    // Pengulangan sampai top of queue adalah node tujuan atau queue kosong
+    while (el.getIdx() != idxdes && !queue.isEmpty()) {
+        el = queue.dequeue();
+
+        // Mencari adjacency di matrix
+        for (let kolom = 0; kolom < matrix[el.getIdx()].length; kolom++) {
+            if (matrix[el.getIdx()][kolom] == 1) {
+                let distanceElNextEl = haversineDistance(long[el.getIdx()], lat[el.getIdx()], long[kolom], lat[kolom]); // hitung jarak pindah elemen
+                let heuristicDistance = haversineDistance(long[indexTujuan], lat[indexTujuan], long[kolom], lat[kolom]); // hitung jarak heuristik nextEl ke tujuan
+                let newWeightVisited = el.getWeightVisited() + distanceElNextEl; // jarak baru (g(n))
+                let newWeight = newWeightVisited + heuristicDistance; // bobot baru (g(n) + h(n))
+                let nextEl = new Element(kolom, el.gethasVisited(), newWeightVisited, newWeight) // bikin next element
+                nextEl.addNode(el.getIdx()); // nambah node yg udah dikunjungi
+                queue.enqueue(nextEl); // enqueue
+            }
         }
+
+        // Next element
+        el = queue.peek();
     }
 
-    // Next element
-    el = queue.peek();
-}
+    // Isi el.visited dengan diri sendiri
+    el.addNode(el.getIdx());
 
-// F.S el sudah berisi simpul tujuan, dengan el.gethasVisited() berisi array indeks-indeks yang sudah dilaluinya
+    // Kondisi ketemu
+    if (el.getIdx() === idxdes) {
+        return el;
+    }
+
+    // Kondisi gaketemu : dummy element dgn indeks -1
+    else {
+        return new Element(-1, [], 0, 0);
+    }
+}
