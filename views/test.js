@@ -52,7 +52,6 @@ class PriorityQueue {
         // Kosong
         if (isEmpty()) {
             this.list.push(element);
-            this.hasVisited.push(element.getIdx());
         }
 
         // Element belum ada di hasVisited; element baru dikunjungi
@@ -80,10 +79,10 @@ class PriorityQueue {
             }
             // Assign ke atribut
             this.list = newList;
-
-            // Tambah hasVisited
-            this.hasVisited.push(element.getIdx());
         }
+
+        // Tambah hasVisited
+        this.hasVisited.push(element.getIdx());
     }
 
     dequeue(element) {
