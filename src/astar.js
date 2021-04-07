@@ -113,9 +113,6 @@ export default function aStar(idxsrc, idxdes, matrix, coor) {
     let el = new Element(idxsrc, [], 0, 0);
     let queue = new PriorityQueue();
     queue.enqueue(el);
-    // console.log(queue);
-    // queue.dequeue();
-    // console.log(queue);
 
     // Pengulangan sampai top of queue adalah node tujuan atau queue kosong
     while (el.getIdx() !== idxdes && !queue.isEmpty()) {
@@ -124,17 +121,14 @@ export default function aStar(idxsrc, idxdes, matrix, coor) {
     
         // Mencari adjacency di matrix
         for (let kolom = 0; kolom < matrix[el.getIdx()].length; kolom++) {
-            if (matrix[el.getIdx()][kolom] === 1) {
+            if (matrix[el.getIdx()][kolom] === 1 && !queue.hasVisited.includes(kolom)) {
                 let distanceElNextEl = haversineDistance(coor[el.getIdx()][0], coor[el.getIdx()][1], coor[kolom][0], coor[kolom][1]); // hitung jarak pindah elemen
                 let heuristicDistance = haversineDistance(coor[idxdes][0], coor[idxdes][1], coor[kolom][0], coor[kolom][1]); // hitung jarak heuristik nextEl ke tujuan
                 let newWeightVisited = el.getWeightVisited() + distanceElNextEl; // jarak baru (g(n))
                 let newWeight = newWeightVisited + heuristicDistance; // bobot baru (g(n) + h(n))
-                // let nextEl = new Element(kolom, el.gethasVisited(), newWeightVisited, newWeight) // bikin next element
-                // nextEl.addNode(el.getIdx()); // nambah node yg udah dikunjungi
                 queue.enqueue(new Element(kolom, el.getVisited(), newWeightVisited, newWeight)); // enqueue
             }
         }
-      
         // Next element
         if (!queue.isEmpty()) {
             el = queue.peek();
@@ -144,11 +138,9 @@ export default function aStar(idxsrc, idxdes, matrix, coor) {
     // Isi el.visited dengan diri sendiri
     el.addNode(el.getIdx());
 
-    console.log(queue);
-  
     // Kondisi ketemu
     if (el.getIdx() === idxdes) {
-        let res = [];
+        let res = [];       
         el.visited.forEach(element => {
             res.push(coor[element]);
         })

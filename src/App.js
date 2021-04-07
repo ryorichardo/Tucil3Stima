@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import ReactMapGL, { Marker, Popup, Source, Layer } from "react-map-gl";
-import aStar from "./tes.js";
+import aStar from "./astar.js";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+const REACT_APP_MAPBOX_TOKEN="pk.eyJ1IjoiYW5kcmVzamVycmllbHMiLCJhIjoiY2tuNXcwYXJvMDg0djJ1bnhkbGU0MTByMSJ9.Gv1fA1OCSi3pgG9w8KZe8w"
+
 
 export default function App() {
   const [selectedPark, setSelectedPark] = useState(null);
@@ -37,15 +40,14 @@ export default function App() {
     const fileReader = new FileReader();
     fileReader.onloadend = () => {
       setData(JSON.parse(fileReader.result));
-      console.log(JSON.parse(fileReader.result));
 
       setSelectedStartEnd([]);
       setSelectedPark(null);
       setViewport({
         latitude: JSON.parse(fileReader.result).nodes[0].coordinate[1],
         longitude: JSON.parse(fileReader.result).nodes[0].coordinate[0],
-        minWidth: "100vw",
-        minHeight: "100vh",
+        width: "100vw",
+        height: "86vh",
         zoom: 15
       });
 
@@ -59,19 +61,6 @@ export default function App() {
        fileReader.readAsText(uploadedFile);
     }
  }
-
-  useEffect(() => {
-    const listener = e => {
-      if (e.key === "Escape") {
-        setSelectedPark(null);
-      }
-    };
-    window.addEventListener("keydown", listener);
-
-    return () => {
-      window.removeEventListener("keydown", listener);
-    };
-  }, []);
 
   return (
     <div>
@@ -108,12 +97,13 @@ export default function App() {
       {(JSON.stringify(data) !== JSON.stringify({})) ? (
       <ReactMapGL
         {...viewport}
-        mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+        mapboxApiAccessToken={REACT_APP_MAPBOX_TOKEN}
         mapStyle="mapbox://styles/mapbox/streets-v11"
         onViewportChange={viewport => {
           setViewport(viewport);
         }}
       >
+        {(selectedStartEnd.length === 2) ? (
         <Button
           className="resetButton"
           style={{ 
@@ -126,6 +116,7 @@ export default function App() {
         >
           Reset Nodes
         </Button>
+        ): null}
 
         {data.nodes.map(node => (
           <Marker
@@ -153,12 +144,6 @@ export default function App() {
                 }
                 else if (selectedStartEnd.length === 1) {
                   setSelectedStartEnd([selectedStartEnd[0], node]);
-                  let matrix = data["adjacency matrix"];
-                  let coor = []
-                  data.nodes.forEach(element => {
-                      coor.push(element.coordinate);
-                  })    
-                  let e = aStar(selectedStartEnd[0].id, node.id, matrix, coor);
                   console.log(polylineGeoJSON);
                 }
               }}

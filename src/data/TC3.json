@@ -1,0 +1,57 @@
+{
+    "nodes":
+        [
+            {
+                "id": 0,
+                "name": "Perempatan Buah Batu",
+                "coordinate": [107.633415, -6.948015]
+            },
+            {
+                "id": 1,
+                "name": "Perempatan Carrefour Kiaracondong",
+                "coordinate": [107.64187124744149, -6.945518546605408]
+            },
+            {
+                "id": 2,
+                "name": "Borma Kiaracondong",
+                "coordinate": [107.64179449812333, -6.9427708914118975]
+            },
+            {
+                "id": 3,
+                "name": "Perempatan Pizza Hut",
+                "coordinate": [107.6227507283541, -6.93689413957874]
+            },
+            {
+                "id": 4,
+                "name": "Kartika Sari Buah Batu",
+                "coordinate": [107.62571781801834, -6.9393561515640645]
+            },
+            {
+                "id": 5,
+                "name": "Pertigaan pasar",
+                "coordinate": [107.63899139970836, -6.954343734935322]
+            },
+            {
+                "id": 6,
+                "name": "Graha Merah Putih",
+                "coordinate": [107.6369100055204, -6.950765353785079]
+            },
+            {
+                "id": 7,
+                "name": "Pertigaan Griya",
+                "coordinate": [107.62616809136998, -6.940528353143426]
+            }
+        ],
+
+    "adjacency matrix": 
+        [
+            [0, 1, 0, 0, 0, 1, 1, 1], 
+            [1, 0, 1, 0, 0, 1, 0, 0],
+            [0, 1, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0],
+            [0, 0, 0, 1, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 1, 0, 0, 0, 0]
+        ]
+}
