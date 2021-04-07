@@ -37,6 +37,7 @@ export default function App() {
     const fileReader = new FileReader();
     fileReader.onloadend = () => {
       setData(JSON.parse(fileReader.result));
+      console.log(JSON.parse(fileReader.result));
 
       setSelectedStartEnd([]);
       setSelectedPark(null);
@@ -94,7 +95,7 @@ export default function App() {
               }}>Silakan upload file JSON sebagai peta</Form.File.Label>
               <Form.File.Input
                 style={{
-                  'text-align': 'center',
+                  textAlign: 'center',
                   marginLeft: 'auto',
                   marginRight: 'auto',
                 }}
