@@ -1,0 +1,57 @@
+{
+    "nodes":
+        [
+            {
+                "id": 0,
+                "name": "Perempatan AEON Mall",
+                "coordinate": [106.64177626119897, -6.30368958538564]
+            },
+            {
+                "id": 1,
+                "name": "Perempatan Prasetiya Mulya",
+                "coordinate": [106.64092598676086, -6.298741440964568]
+            },
+            {
+                "id": 2,
+                "name": "Perempatan Foresta",
+                "coordinate": [106.64820817594301, -6.299913732857801]
+            },
+            {
+                "id": 3,
+                "name": "ICE BSD City",
+                "coordinate": [106.63604376576018, -6.297923561261921]
+            },
+            {
+                "id": 4,
+                "name": "Perempatan Nanyang School",
+                "coordinate": [106.64973106320421, -6.289287402492473]
+            },
+            {
+                "id": 5,
+                "name": "Perempatan QBig BSD City",
+                "coordinate": [106.6390070211098, -6.286968077777703]
+            },
+            {
+                "id": 6,
+                "name": "Perempatan McD Sunburst",
+                "coordinate": [106.66380485813265, -6.299754495684215]
+            },
+            {
+                "id": 7,
+                "name": "Perumahan Virginia Lagoon",
+                "coordinate": [106.66440595652503, -6.293112975885693]
+            }
+        ],
+
+    "adjacency matrix": 
+        [
+            [0, 1, 0, 0, 0, 0, 0, 0], 
+            [1, 0, 1, 1, 0, 1, 0, 0],
+            [0, 1, 0, 0, 1, 0, 1, 0],
+            [0, 1, 0, 0, 0, 0, 0, 0],
+            [0, 0, 1, 0, 0, 1, 0, 0],
+            [0, 1, 0, 0, 1, 0, 0, 0],
+            [0, 0, 1, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 1, 0]
+        ]
+}
